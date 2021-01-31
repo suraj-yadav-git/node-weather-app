@@ -5,9 +5,7 @@ const forecast = require('./utils/forecast')
 const express = require('express')
 
 const app = express()
-
-//console.log(__dirname)
-//console.log(path.join(__dirname,'../public/index.html'))
+const port = process.env.PORT || 8080
 
 const publicDirPath = path.join(__dirname,'../public')
 const viewsPath = path.join(__dirname,'../templates/views')
@@ -66,20 +64,6 @@ app.get('/weather', (req, res) => {
     })
 })
 
-app.get('/products', (req, res) => {
-
-    if(!req.query.search) {
-        return res.send({
-            error : 'Please provide search key!'
-        })
-    } 
-    
-    console.log(req.query.search)
-    res.send({
-        products: []
-    })
-})
-
 app.get('/help/*', (req, res) => {
     res.render('pnf', {
         message: 'Help article not found..',
@@ -96,6 +80,6 @@ app.get('*', (req, res) => {
     })
 })
 
-app.listen(8080, () => {
-    console.log('Server is up on port 8080...')
+app.listen(port, () => {
+    console.log('Server is up on port '+port)
 })
